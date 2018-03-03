@@ -1,0 +1,39 @@
+body, html {
+    height: 100%;
+    display: grid;
+    background-color: rgb(34, 34, 34);
+}
+
+.text {
+    margin: auto;
+
+    font-family: "Open Sans",arial,x-locale-body,sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #83d0f2;
+    text-align: center;
+}
+
+.text-en {
+    margin-bottom: 15px;
+}
+
+.text-ru {
+    font-size: 20px;
+}
+
+.text-en:hover, .text-ru:hover, i:hover {
+    color: #fff;
+    cursor: pointer;
+}
+
+.text-control {
+    text-align: center;
+    font-size: 50px;
+    user-select: none;
+    margin-top: 40px;
+}
+
+i:first-child {
+    margin-right: 30px;
+}

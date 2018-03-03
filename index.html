@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <title>English Idioms</title>
+</head>
+<body onload="load()">
+<div class="text">
+    <p class="text-en js__text-en"></p>
+    <p class="text-ru js__text-ru"></p>
+    <div class="text-control">
+        <i class="fas fa-arrow-circle-left js__left"></i>
+        <i class="fas fa-arrow-circle-right js__right"></i>
+    </div>
+</div>
+
+
+<script>
+    // Глобальные переменные
+    var JSON_DATA, IDX;
+
+    function load() {
+        setEvents();
+
+        loadJSON(function (response) {
+            JSON_DATA = JSON.parse(response);
+            IDX = getRandomInt(0, JSON_DATA.length);
+
+            renderText();
+        });
+    }
+
+    function loadJSON(callback) {
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open('GET', 'data.json', true);
+        xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status == "200") {
+                callback(xobj.responseText);
+            }
+        };
+        xobj.send(null);
+    }
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    function setEvents() {
+        var leftBtn = document.querySelectorAll('.js__left')[0],
+            rightBtn = document.querySelectorAll('.js__right')[0];
+
+        leftBtn.addEventListener("click", function () {
+            IDX = IDX === 0 ? (JSON_DATA.length - 1) : IDX - 1;
+            renderText();
+        });
+
+        rightBtn.addEventListener("click", function () {
+            IDX = IDX === (JSON_DATA.length - 1) ? 0 : IDX + 1;
+            renderText();
+        });
+    }
+
+    function renderText() {
+        var textEn = document.querySelectorAll('.js__text-en')[0],
+            textRu = document.querySelectorAll('.js__text-ru')[0];
+
+        textEn.innerHTML = JSON_DATA[IDX]['en'];
+        textRu.innerHTML = JSON_DATA[IDX]['ru'];
+    }
+</script>
+
+</body>
+</html>
